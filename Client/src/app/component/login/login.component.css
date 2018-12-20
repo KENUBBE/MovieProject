@@ -1,0 +1,16 @@
+
+h1 {
+    margin-top: 75px;
+}
+
+.signinButton {
+    text-transform:none; 
+    margin-left: 42%; 
+    margin-top: 5%; 
+    width: 15%;
+}
+
+.googleIcon {
+    margin-top: 8px; 
+    margin-left: 2px;
+}

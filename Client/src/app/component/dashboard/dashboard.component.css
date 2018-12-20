@@ -1,0 +1,30 @@
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.mat-form-field[_ngcontent-c1] {
+    margin-left: 25%;
+	margin-bottom: 30px;
+    width: 50%;
+}
+
+button {
+    margin: auto;
+    margin-top: 6%;
+    display:block;
+    width: 15%;
+}
+
+.fa-info-circle {
+    font-size: 24px;
+    margin-top: 12px;
+    float: right;
+    color: seagreen;
+}
+
+.main {
+    width: 200px;
+    margin: 30px;
+  }
+
