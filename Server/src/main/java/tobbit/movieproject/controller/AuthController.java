@@ -49,7 +49,6 @@ public class AuthController implements Constants {
         System.out.println("refreshToken: " + refreshToken);
         System.out.println("expiresAt: " + expiresAt);
 
-        // Get profile info from ID token (Obtained at the last step of OAuth2)
         GoogleIdToken idToken = null;
         try {
             idToken = tokenResponse.parseIdToken();

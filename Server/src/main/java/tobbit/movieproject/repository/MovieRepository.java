@@ -9,5 +9,4 @@ import java.util.List;
 public interface MovieRepository extends MongoRepository<Movie, String> {
     @Query(value = "{'title': {$regex : ?0, $options: 'i'}}")
     List<Movie> findMovieByTitle(String title);
-    Boolean existsByTitle(String title);
 }
