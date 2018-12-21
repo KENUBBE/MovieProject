@@ -1,30 +1,37 @@
 package tobbit.movieproject.service;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.Events;
+import com.google.api.services.calendar.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
-import tobbit.movieproject.model.User;
-import tobbit.movieproject.model.UserEvent;
+import tobbit.movieproject.model.*;
 import tobbit.movieproject.repository.UserRepository;
+import tobbit.movieproject.utils.Constants;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+
+
 @Service
-public class CalendarService {
+public class CalendarService implements Constants {
 
     private final UserRepository userRepository;
+    private final MongoOperations mongoOperations;
 
     @Autowired
-    public CalendarService(UserRepository userRepository) {
+    public CalendarService(UserRepository userRepository, MongoOperations mongoOperations) {
         this.userRepository = userRepository;
+        this.mongoOperations = mongoOperations;
     }
 
     public List<UserEvent> getAllUserEvents() {
@@ -35,8 +42,9 @@ public class CalendarService {
             Calendar service = new Calendar.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential)
                     .setApplicationName("Movie Nights")
                     .build();
+            updateToken();
 
-            final DateTime startDate = new DateTime("2018-10-05T16:30:00.000+05:30"); // Change to now!
+            final DateTime startDate = new DateTime("2018-10-05T16:30:00.000+05:30"); // Change to now when done!
             Events events = null;
             try {
                 events = service.events().list(allUsers.get(i).getEmail())
@@ -65,6 +73,43 @@ public class CalendarService {
                 }
             }
         }
+
         return allEvents;
+    }
+
+    private GoogleCredential refreshCredentials(String refreshToken) {
+        try {
+            GoogleTokenResponse response = new GoogleRefreshTokenRequest(
+                    new NetHttpTransport(), JacksonFactory.getDefaultInstance(),
+                    refreshToken, CLIENT_ID, CLIENT_SECRET)
+                    .execute();
+            return new GoogleCredential().setAccessToken(response.getAccessToken());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private void updateToken() {
+        List<User> allUsers = userRepository.findAll();
+        for (int i = 0; i < allUsers.size(); i++) {
+            long expiresAt = allUsers.get(i).getExpiresAt();
+            long now = new DateTime(System.currentTimeMillis()).getValue();
+            if (hasTokenExpired(expiresAt, now)) {
+                GoogleCredential newCredentials = refreshCredentials(allUsers.get(i).getRefreshToken());
+                updateUser(allUsers.get(i).getEmail(), newCredentials.getAccessToken());
+            }
+        }
+    }
+
+    private boolean hasTokenExpired(long expiresAt, long now) {
+        org.joda.time.DateTime expire = new org.joda.time.DateTime(expiresAt);
+        org.joda.time.DateTime current = new org.joda.time.DateTime(now);
+        return current.isBefore(expire);
+    }
+
+    private void updateUser(String email, String accessToken) {
+        mongoOperations.updateFirst(
+                query(where("email").is(email)), Update.update("accessToken", accessToken), "user");
     }
 }

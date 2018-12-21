@@ -5,4 +5,5 @@ import tobbit.movieproject.model.User;
 
 public interface UserRepository extends MongoRepository<User, String> {
     boolean existsByEmail(String email);
+    User findByEmail(String email);
 }
