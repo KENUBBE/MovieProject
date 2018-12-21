@@ -56,8 +56,11 @@ public class CalendarService implements Constants {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            List<Event> items = events.getItems();
-            if (items.isEmpty()) {
+            List<Event> items = null;
+            if (events != null) {
+                items = events.getItems();
+            }
+            if (items == null) {
                 System.out.println("No events found");
             } else {
                 for (Event event : items) {
@@ -96,6 +99,7 @@ public class CalendarService implements Constants {
             long expiresAt = allUsers.get(i).getExpiresAt();
             long now = new DateTime(System.currentTimeMillis()).getValue();
             if (hasTokenExpired(expiresAt, now)) {
+                System.out.println("TOKEN EXPIRED");
                 GoogleCredential newCredentials = refreshCredentials(allUsers.get(i).getRefreshToken());
                 updateUser(allUsers.get(i).getEmail(), newCredentials.getAccessToken());
             }
@@ -105,7 +109,7 @@ public class CalendarService implements Constants {
     private boolean hasTokenExpired(long expiresAt, long now) {
         org.joda.time.DateTime expire = new org.joda.time.DateTime(expiresAt);
         org.joda.time.DateTime current = new org.joda.time.DateTime(now);
-        return current.isBefore(expire);
+        return current.isAfter(expire);
     }
 
     private void updateUser(String email, String accessToken) {
