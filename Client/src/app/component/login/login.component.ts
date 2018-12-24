@@ -47,5 +47,7 @@ export class LoginComponent implements OnInit {
           }
         }).catch(err => console.log("ERROR: ", err))
     }
+    const currentUser = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
+    localStorage.setItem("currentUser", currentUser);
   }
 }

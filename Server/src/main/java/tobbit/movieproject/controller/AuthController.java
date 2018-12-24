@@ -3,7 +3,9 @@ package tobbit.movieproject.controller;
 import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tobbit.movieproject.model.User;
 import tobbit.movieproject.repository.UserRepository;
@@ -22,8 +24,10 @@ public class AuthController implements Constants {
         this.userRepository = userRepository;
     }
 
+
+    //TODO: Refactor  AuthService instead!
     @PostMapping("/verifyUser")
-    public String storeAuthCode(@RequestBody String code) {
+    public ResponseEntity<String> storeAuthCode(@RequestBody String code) {
         System.out.println("CODE: " + code);
         GoogleTokenResponse tokenResponse = null;
         try {
@@ -40,7 +44,6 @@ public class AuthController implements Constants {
             e.printStackTrace();
         }
 
-        //Store these 3in DB
         String accessToken = tokenResponse.getAccessToken();
         String refreshToken = tokenResponse.getRefreshToken();
         Long expiresAt = System.currentTimeMillis() + (tokenResponse.getExpiresInSeconds() * 1000);
@@ -59,11 +62,10 @@ public class AuthController implements Constants {
         String email = payload.getEmail();
 
         storeUser(email, accessToken, refreshToken, expiresAt);
-        return "AUTH SUCCESSFUL";
+        return ResponseEntity.ok("Access granted for user: " + email);
     }
 
     private void storeUser(String email, String accessToken, String refreshToken, Long expiresAt) {
-        //TODO: check if accessToken has expired, refresh if necessary and replace in db
         if (!userRepository.existsByEmail(email))
             userRepository.save(new User(email, accessToken, refreshToken, expiresAt));
     }

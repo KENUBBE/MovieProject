@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CalendarService } from 'src/app/provider/calendar/calendar.service';
 
 @Component({
   selector: 'app-moviepage',
@@ -10,7 +11,7 @@ export class MoviepageComponent implements OnInit {
 
   selectedMovie: any;
 
-  constructor(private _router: Router) { }
+  constructor(private _router: Router, private _calendarService: CalendarService) { }
 
   ngOnInit() {
     this.selectedMovie = JSON.parse(localStorage.getItem('selectedMovie'));
@@ -22,8 +23,18 @@ export class MoviepageComponent implements OnInit {
       data: 0
     });
   }
-  
-  showOnImdb(){
+
+  addEvent(event) {
+    let newEvent = {
+      'summary': 'Tonights scheduled movie: ' + this.selectedMovie.Title,
+      'startDate': event.value,
+      'createdBy': localStorage.getItem("currentUser")
+    };
+    this._calendarService.createEvent(newEvent).subscribe(res => console.log(res));
+    console.log(event.value);
+  }
+
+  showOnImdb() {
     window.location.href = `https://www.imdb.com/title/${this.selectedMovie.imdbID}`;
   }
 }

@@ -15,8 +15,7 @@ import tobbit.movieproject.repository.UserRepository;
 import tobbit.movieproject.utils.Constants;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -37,20 +36,13 @@ public class CalendarService implements Constants {
     public List<UserEvent> getAllUserEvents() {
         List<User> allUsers = userRepository.findAll();
         List<UserEvent> allEvents = new ArrayList<>();
+        updateToken();
         for (int i = 0; i < allUsers.size(); i++) {
-            GoogleCredential credential = new GoogleCredential().setAccessToken(allUsers.get(i).getAccessToken());
-            Calendar service = new Calendar.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential)
-                    .setApplicationName("Movie Nights")
-                    .build();
-            updateToken();
-
             final DateTime startDate = new DateTime("2018-10-05T16:30:00.000+05:30"); // Change to now when done!
             Events events = null;
             try {
-                events = service.events().list(allUsers.get(i).getEmail())
-                        .setMaxResults(10)
+                events = createCalendarService(allUsers.get(i).getEmail()).events().list(allUsers.get(i).getEmail())
                         .setTimeMin(startDate)
-                        .setOrderBy("startTime")
                         .setSingleEvents(true)
                         .execute();
             } catch (IOException e) {
@@ -72,12 +64,20 @@ public class CalendarService implements Constants {
                     if (end == null) {
                         end = event.getEnd().getDate();
                     }
-                    allEvents.add(new UserEvent(event.getSummary(), start, end));
+                    allEvents.add(new UserEvent(event.getSummary(), start, end, "Not announced"));
                 }
             }
         }
 
         return allEvents;
+    }
+
+    private Calendar createCalendarService(String email) {
+        User currentUser = userRepository.findByEmail(email);
+        GoogleCredential credential = new GoogleCredential().setAccessToken(currentUser.getAccessToken());
+        return new Calendar.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential)
+                .setApplicationName("Movie Nights")
+                .build();
     }
 
     private GoogleCredential refreshCredentials(String refreshToken) {
@@ -115,5 +115,38 @@ public class CalendarService implements Constants {
     private void updateUser(String email, String accessToken) {
         mongoOperations.updateFirst(
                 query(where("email").is(email)), Update.update("accessToken", accessToken), "user");
+    }
+
+    public Event scheduleEvent(String summary, DateTime startDateTime, String eventCreatedBy) {
+        List<User> allUsers = userRepository.findAll();
+        List<EventAttendee> allAttendees = new ArrayList<>();
+        Event event = new Event();
+        for (User u : allUsers) {
+            event
+                    .setSummary(summary)
+                    .setDescription("Booked on http://movienights.se");
+
+            //DateTime startDateTime = new DateTime("2019-01-06T00:00:00+01:00");
+            EventDateTime start = new EventDateTime()
+                    .setDateTime(startDateTime);
+            event.setStart(start);
+
+            org.joda.time.DateTime parseEnd = new org.joda.time.DateTime(startDateTime.getValue()).plusHours(3);
+            DateTime endDateTime = new DateTime(parseEnd.toString());
+            EventDateTime end = new EventDateTime()
+                    .setDateTime(endDateTime);
+            event.setEnd(end);
+            if (!u.getEmail().equals(eventCreatedBy)) {
+                allAttendees.add(new EventAttendee().setEmail(u.getEmail()));
+                event.setAttendees(allAttendees); // TODO: REMOVE PRIMARY FROM ATTENDEES
+            }
+        }
+        try {
+            event = createCalendarService(eventCreatedBy).events().insert(eventCreatedBy, event).execute(); // TODO: GET THE PRIMARY USERS EMAIL AND USE THAT INSTEAD!!
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.printf("Event created: %s\n", event.getHtmlLink());
+        return event;
     }
 }
