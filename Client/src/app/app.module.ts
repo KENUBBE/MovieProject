@@ -12,13 +12,19 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MoviepageComponent } from './component/moviepage/moviepage.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl } from 'ng-pick-datetime';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'movie/:id', component: MoviepageComponent }
-]
+];
+
+export class DefaultIntl extends OwlDateTimeIntl {
+  cancelBtnLabel = 'Cancel';
+  setBtnLabel = 'Book';
+};
 
 @NgModule({
   declarations: [
@@ -28,6 +34,8 @@ const routes: Routes = [
     MoviepageComponent
   ],
   imports: [
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     MatButtonModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -42,7 +50,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [
-    HttpClient
+    HttpClient,
+    { provide: OwlDateTimeIntl, useClass: DefaultIntl }
   ],
   bootstrap: [AppComponent]
 })

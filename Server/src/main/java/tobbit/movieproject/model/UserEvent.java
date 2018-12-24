@@ -1,19 +1,37 @@
 package tobbit.movieproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.api.client.util.DateTime;
+import com.google.api.services.calendar.model.EventAttendee;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserEvent {
+
+    @JsonProperty("summary")
     private String summary;
+    @JsonProperty("startDate")
     private DateTime startDate;
     private DateTime endDate;
+    @JsonProperty("createdBy")
+    private String createdBy;
 
     public UserEvent() {
     }
 
-    public UserEvent(String summary, DateTime startDate, DateTime endDate) {
+    public UserEvent(String summary, DateTime startDate, DateTime endDate, String createdBy) {
         this.summary = summary;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public String getSummary() {

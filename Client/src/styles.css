@@ -2,4 +2,5 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url('../node_modules/font-awesome/css/font-awesome.min.css');
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 

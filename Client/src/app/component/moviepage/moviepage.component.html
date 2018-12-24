@@ -6,5 +6,11 @@
 <div><button (click)="showOnImdb()" mat-raised-button color="primary">Read about movie on imdb</button></div>
 
 
-
-
+<div class="example-wrapper">
+    <label class="example-input-wrapper">
+        <input placeholder="Choose date"
+               (dateTimeInput)="addEvent($event)"
+               [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
+        <owl-date-time #dt></owl-date-time>
+    </label>
+</div>
