@@ -126,7 +126,6 @@ public class CalendarService implements Constants {
                     .setSummary(summary)
                     .setDescription("Booked on http://movienights.se");
 
-            //DateTime startDateTime = new DateTime("2019-01-06T00:00:00+01:00");
             EventDateTime start = new EventDateTime()
                     .setDateTime(startDateTime);
             event.setStart(start);
@@ -138,11 +137,11 @@ public class CalendarService implements Constants {
             event.setEnd(end);
             if (!u.getEmail().equals(eventCreatedBy)) {
                 allAttendees.add(new EventAttendee().setEmail(u.getEmail()));
-                event.setAttendees(allAttendees); // TODO: REMOVE PRIMARY FROM ATTENDEES
+                event.setAttendees(allAttendees);
             }
         }
         try {
-            event = createCalendarService(eventCreatedBy).events().insert(eventCreatedBy, event).execute(); // TODO: GET THE PRIMARY USERS EMAIL AND USE THAT INSTEAD!!
+            event = createCalendarService(eventCreatedBy).events().insert(eventCreatedBy, event).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }

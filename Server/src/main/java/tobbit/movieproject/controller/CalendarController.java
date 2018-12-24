@@ -26,11 +26,8 @@ public class CalendarController {
         return calendarService.getAllUserEvents();
     }
 
-    @PostMapping("/api/scheduleEvent") // TODO: Post with @RequestBody from frontend with the whole event and logged in users email!!
-    public Event scheduleEvent(@RequestBody UserEvent event){
-        System.out.println(event.getSummary());
-        System.out.println(event.getStartDate().toStringRfc3339());
-        System.out.println(event.getCreatedBy());
+    @PostMapping("/api/scheduleEvent")
+    public Event scheduleEvent(@RequestBody UserEvent event) {
         return calendarService.scheduleEvent(event.getSummary(), event.getStartDate(), event.getCreatedBy());
     }
 }
