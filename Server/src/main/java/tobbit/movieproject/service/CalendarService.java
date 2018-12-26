@@ -118,6 +118,7 @@ public class CalendarService implements Constants {
     }
 
     public Event scheduleEvent(String summary, DateTime startDateTime, String eventCreatedBy) {
+        updateToken();
         List<User> allUsers = userRepository.findAll();
         List<EventAttendee> allAttendees = new ArrayList<>();
         Event event = new Event();

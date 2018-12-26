@@ -26,12 +26,13 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    gapi.auth2.getAuthInstance().grantOfflineAccess().then(this.signInCallback)
+    gapi.auth2.getAuthInstance().grantOfflineAccess({
+      prompt: 'select_account',
+    }).then(this.signInCallback)
   };
 
   signInCallback(authResult) {
     if (authResult.code) {
-
       let axiosConfig = {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
@@ -43,11 +44,11 @@ export class LoginComponent implements OnInit {
       _axios.post('http://localhost:8080/verifyUser', authResult.code, axiosConfig)
         .then(data => {
           if (data.status == 200) {
+            let currentUser = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
+            localStorage.setItem("currentUser", currentUser);
             window.location.replace("http://localhost:4200/dashboard");
           }
         }).catch(err => console.log("ERROR: ", err))
     }
-    const currentUser = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
-    localStorage.setItem("currentUser", currentUser);
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { baseApiUrl } from '../../constants/constants';
+import { baseApiUrl, omdbURL } from '../../constants/constants';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,6 +12,10 @@ export class HttpService {
 
   public get(endpoint: string): Observable<any> {
     return this.http.get(baseApiUrl + endpoint);
+  }
+
+  public getFromOMDB(endpoint: string){
+    return this.http.get(omdbURL + endpoint);
   }
 
   public post(endpoint: string, body: any): Observable<any> {
