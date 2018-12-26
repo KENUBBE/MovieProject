@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,5 +10,9 @@ export class MovieService {
 
   public fetchMoviesByTitle(value){
     return this._httpService.get(`/api/fetchMovieByTitle/?title=${value}`)
+  }
+
+  public fetchMovieDescription(value){
+    return this._httpService.getFromOMDB(`/?i=${value}&apikey=82d59939`);
   }
 }

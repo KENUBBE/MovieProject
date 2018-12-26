@@ -1,16 +1,22 @@
-<p>{{selectedMovie.Title}}</p>
+<p>Title: selectedMovie?.Title}}</p>
+<p>Year released: {{movieDescription[0]?.Released}}</p>
+<p>Language: {{movieDescription[0]?.Language}}</p>
+<p>Genre: {{movieDescription[0]?.Genre}}</p>
+<p>Runtime: {{movieDescription[0]?.Runtime}}</p>
+<p>Rating on IMDB: {{movieDescription[0]?.imdbRating}}</p>
+<p>Actors: {{movieDescription[0]?.Actors}}</p>
+<p>Plot: {{movieDescription[0]?.Plot}}</p>
+
 <img src="{{selectedMovie.Poster}}">
 
-<div><button mat-raised-button color="primary">Book this movie</button></div>
+<!-- <div><button mat-raised-button color="primary">Book this movie</button></div> -->
 <div><button (click)="goBack()" mat-raised-button color="primary">Go back to dashboard</button></div>
 <div><button (click)="showOnImdb()" mat-raised-button color="primary">Read about movie on imdb</button></div>
 
 
 <div class="example-wrapper">
     <label class="example-input-wrapper">
-        <input placeholder="Choose date"
-               (dateTimeInput)="addEvent($event)"
-               [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
+        <input placeholder="Choose date" (dateTimeInput)="addEvent($event)" [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
         <owl-date-time #dt></owl-date-time>
     </label>
 </div>

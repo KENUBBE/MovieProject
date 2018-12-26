@@ -1,20 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarService } from 'src/app/provider/calendar/calendar.service';
+import { MovieService } from 'src/app/provider/movie/movie.service';
 
 @Component({
   selector: 'app-moviepage',
   templateUrl: './moviepage.component.html',
   styleUrls: ['./moviepage.component.css']
 })
-export class MoviepageComponent implements OnInit {
+export class MoviepageComponent implements OnInit, OnDestroy {
 
   selectedMovie: any;
+  movieDescription: any[] = [];
 
-  constructor(private _router: Router, private _calendarService: CalendarService) { }
+  constructor(private _router: Router, private _calendarService: CalendarService, private _movieService : MovieService) {
+    this.selectedMovie = JSON.parse(localStorage.getItem('selectedMovie'));
+   }
 
   ngOnInit() {
-    this.selectedMovie = JSON.parse(localStorage.getItem('selectedMovie'));
+    this.fetchMovieDescription(this.selectedMovie.imdbID);
+  }
+
+  ngOnDestroy() {
+    this.movieDescription = [];
+    localStorage.removeItem("selectedMovie");
   }
 
   goBack() {
@@ -31,7 +40,10 @@ export class MoviepageComponent implements OnInit {
       'createdBy': localStorage.getItem("currentUser")
     };
     this._calendarService.createEvent(newEvent).subscribe(res => console.log(res));
-    console.log(event.value);
+  }
+
+  fetchMovieDescription(imdbID){
+    this._movieService.fetchMovieDescription(imdbID).subscribe(res => this.movieDescription.push(res.json()));
   }
 
   showOnImdb() {
