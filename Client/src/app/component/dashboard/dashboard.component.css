@@ -1,6 +1,7 @@
 h1 {
     display: flex;
     justify-content: center;
+    margin-top: 25px;
 }
 
 .mat-form-field[_ngcontent-c1] {
@@ -23,8 +24,35 @@ button {
     color: seagreen;
 }
 
-.main {
+.main[_ngcontent-c1] {
+    display: inline-block;
     width: 200px;
-    margin: 30px;
-  }
+    padding: 25px;
+}
 
+.card .card-content .card-title {
+    display: block;
+    line-height: 32px;
+    margin-bottom: 8px;
+    font-size: 18px;
+    word-break: break-word;
+}
+
+.img-list li {
+    display: flex;
+    justify-content: center;
+    
+}
+
+
+ul {
+    display: flex;
+    justify-content: center;
+}
+
+.img-list img {
+    margin: 15px;
+    height: 250px;
+    width: 150px;
+    cursor: pointer;
+}

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Movie {
 
@@ -19,16 +22,27 @@ public class Movie {
     private String type;
     @JsonProperty("Poster")
     private String poster;
+    @JsonProperty("movieDescription")
+    private MovieDescription movieDescription;
 
     public Movie() {
     }
 
-    public Movie(String title, String year, String imdbID, String type, String poster) {
+    public Movie(String title, String year, String imdbID, String type, String poster, MovieDescription movieDescription) {
         this.title = title;
         this.year = year;
         this.imdbID = imdbID;
         this.type = type;
         this.poster = poster;
+        this.movieDescription = movieDescription;
+    }
+
+    public MovieDescription getMovieDescription() {
+        return movieDescription;
+    }
+
+    public void setMovieDescription(MovieDescription movieDescription) {
+        this.movieDescription = movieDescription;
     }
 
     public String getId() {

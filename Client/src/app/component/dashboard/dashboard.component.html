@@ -1,30 +1,21 @@
-
 <h1>Dashboard</h1>
 
 <mat-form-field class="example-full-width">
-    <input type="text" [(ngModel)]="userInput" placeholder="Sök bland filmer" (keyup)="clearOptions(userInput)" (keyup)="getMovies(userInput)" matInput
-        [formControl]="myControl" [matAutocomplete]="auto">
+    <input type="text" [(ngModel)]="userInput" placeholder="Sök bland filmer" (keyup)="clearOptions(userInput)" (keyup)="searchMovies(userInput)"
+        matInput [formControl]="myControl" [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let movie of allMovies" (click)="movieDetail(movie)">
+        <mat-option *ngFor="let movie of searchResult" (click)="movieDetail(movie)">
             {{movie.Title}}<i class="fa fa-info-circle" aria-hidden="true"></i>
         </mat-option>
     </mat-autocomplete>
 </mat-form-field>
 
-<div class="main">
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="http://materializecss.com/images/office.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
+<section class="topMovie">
+    <ul class="img-list">
+        <li *ngFor="let topMovie of topRatedMovies" (click)="movieDetail(topMovie)"><img src="{{topMovie.Poster}}"></li>
+    </ul>
+</section>
+
+
 
 <button (click)="logout()" mat-raised-button color="primary">Logout</button>

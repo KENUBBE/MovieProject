@@ -13,6 +13,12 @@ export class MovieService {
   }
 
   public fetchMovieDescription(value){
+    console.log(value);
     return this._httpService.getFromOMDB(`/?i=${value}&apikey=82d59939`);
+  }
+
+
+  public getHighRatedMovies(){
+    return this._httpService.get('/api/highRatedMovies');
   }
 }

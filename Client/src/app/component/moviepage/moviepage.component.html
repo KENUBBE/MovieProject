@@ -1,13 +1,13 @@
-<p>Title: selectedMovie?.Title}}</p>
-<p>Year released: {{movieDescription[0]?.Released}}</p>
-<p>Language: {{movieDescription[0]?.Language}}</p>
-<p>Genre: {{movieDescription[0]?.Genre}}</p>
-<p>Runtime: {{movieDescription[0]?.Runtime}}</p>
-<p>Rating on IMDB: {{movieDescription[0]?.imdbRating}}</p>
-<p>Actors: {{movieDescription[0]?.Actors}}</p>
-<p>Plot: {{movieDescription[0]?.Plot}}</p>
+<p>Title: {{selectedMovie?.Title}}</p>
+<p>Year released: {{selectedMovie.movieDescription?.Released}}</p>
+<p>Language: {{selectedMovie.movieDescription?.Language}}</p>
+<p>Genre: {{selectedMovie.movieDescription?.Genre}}</p>
+<p>Runtime: {{selectedMovie.movieDescription?.Runtime}}</p>
+<p>Rating on IMDB: {{selectedMovie.movieDescription?.imdbRating}}</p>
+<p>Actors: {{selectedMovie.movieDescription?.Actors}}</p>
+<p>Plot: {{selectedMovie.movieDescription?.Plot}}</p>
 
-<img src="{{selectedMovie.Poster}}">
+<img src="{{selectedMovie?.Poster}}">
 
 <!-- <div><button mat-raised-button color="primary">Book this movie</button></div> -->
 <div><button (click)="goBack()" mat-raised-button color="primary">Go back to dashboard</button></div>

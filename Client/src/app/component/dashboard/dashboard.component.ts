@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MovieService } from 'src/app/provider/movie/movie.service';
 import { FormControl } from '@angular/forms';
-
+declare var $ : any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -10,28 +10,38 @@ import { FormControl } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
 
-  allMovies: string[] = [];
+  searchResult: string[] = [];
+  topRatedMovies: any;
   myControl = new FormControl();
   userInput: any;
 
-  constructor(private _router: Router, private _movieService: MovieService) { }
+  constructor(private _router: Router, private _movieService: MovieService) { 
+    this.highRatedMovies();
+  }
 
   ngOnInit() {
   }
 
-  getMovies(userInput) {
+  searchMovies(userInput) {
     if (userInput.length >= 2) {
       this._movieService.fetchMoviesByTitle(userInput).subscribe(res => {
-        this.allMovies = res.json();
+        this.searchResult = res.json();
       })
     }
   }
 
   clearOptions(userInput) {
     if (userInput.length < 2) {
-      this.allMovies = [];
+      this.searchResult = [];
     }
   }
+
+  highRatedMovies() {
+    this._movieService.getHighRatedMovies().subscribe(res => {
+      this.topRatedMovies = res.json();
+    });
+  }
+
 
   movieDetail(selectedMovie) {
     this._router.navigateByData({
@@ -39,6 +49,14 @@ export class DashboardComponent implements OnInit {
       data: [selectedMovie]
     });
     localStorage.setItem('selectedMovie', JSON.stringify(selectedMovie));
+  }
+
+  showPlot() {
+    $('.card-reveal').show();
+  }
+
+  hidePlot() {
+    $('.card-reveal').hide();
   }
 
   logout() {

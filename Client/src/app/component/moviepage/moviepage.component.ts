@@ -18,7 +18,6 @@ export class MoviepageComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-    this.fetchMovieDescription(this.selectedMovie.imdbID);
   }
 
   ngOnDestroy() {
@@ -40,10 +39,6 @@ export class MoviepageComponent implements OnInit, OnDestroy {
       'createdBy': localStorage.getItem("currentUser")
     };
     this._calendarService.createEvent(newEvent).subscribe(res => console.log(res));
-  }
-
-  fetchMovieDescription(imdbID){
-    this._movieService.fetchMovieDescription(imdbID).subscribe(res => this.movieDescription.push(res.json()));
   }
 
   showOnImdb() {

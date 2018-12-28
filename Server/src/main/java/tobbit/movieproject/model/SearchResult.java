@@ -1,6 +1,7 @@
 package tobbit.movieproject.model;
 
 import com.fasterxml.jackson.annotation.*;
+
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

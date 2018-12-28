@@ -21,6 +21,11 @@ public class MovieController {
 
     @GetMapping("/api/fetchMovieByTitle")
     public ResponseEntity<List<Movie>> getMovieByTitle(@RequestParam String title) {
-        return new ResponseEntity<>(movieService.searchMovieByTitle(title), HttpStatus.OK);
+        return ResponseEntity.ok(movieService.searchMovieByTitle(title));
+    }
+
+    @GetMapping("/api/highRatedMovies")
+    public ResponseEntity<List<Movie>> highRatedMovie(){
+        return ResponseEntity.ok(movieService.highestRatedMovies());
     }
 }
