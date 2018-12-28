@@ -17,8 +17,15 @@ export class MovieService {
     return this._httpService.getFromOMDB(`/?i=${value}&apikey=82d59939`);
   }
 
-
   public getHighRatedMovies(){
     return this._httpService.get('/api/highRatedMovies');
+  }
+
+  public getTopTvSeries(){
+    return this._httpService.get('/api/topTvSeries');
+  }
+
+  public getChildrenMovies(){
+    return this._httpService.get('/api/childrenMovies');
   }
 }

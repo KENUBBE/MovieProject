@@ -1,8 +1,9 @@
-<h1>Dashboard</h1>
+<h1>MOVIE SECTION</h1>
 
-<mat-form-field class="example-full-width">
-    <input type="text" [(ngModel)]="userInput" placeholder="Sök bland filmer" (keyup)="clearOptions(userInput)" (keyup)="searchMovies(userInput)"
+<mat-form-field color="warn" class="example-full-width">
+    <input type="text" [(ngModel)]="userInput" placeholder="Search for title" (keyup)="clearOptions(userInput)" (keyup)="searchMovies(userInput)"
         matInput [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-placeholder color="warn" class="placeholder"><i class="fa fa-search" aria-hidden="true"></i></mat-placeholder>
     <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let movie of searchResult" (click)="movieDetail(movie)">
             {{movie.Title}}<i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -11,11 +12,38 @@
 </mat-form-field>
 
 <section class="topMovie">
+    <span class="topMovieHeader">TOP RATED ON IMDB</span>
     <ul class="img-list">
-        <li *ngFor="let topMovie of topRatedMovies" (click)="movieDetail(topMovie)"><img src="{{topMovie.Poster}}"></li>
+        <li *ngFor="let topMovie of topRatedMovies" (click)="movieDetail(topMovie)"><img src="{{topMovie.Poster}}" alt="NO PICTURE"><span
+                class="topMovieTitle">{{topMovie.Title}}</span><span class="topMovieImdbRating"><i class="fa fa-star"
+                    aria-hidden="true"></i>
+                <p>{{topMovie.movieDescription.imdbRating}}</p>
+            </span></li>
+    </ul>
+</section>
+
+<section class="childrenMovie">
+        <span class="childrenMovieHeader">KIDS & FAMILY</span>
+    <ul class="img-list">
+        <li *ngFor="let childrenMovie of topChildrenMovies" (click)="movieDetail(childrenMovie)"><img src="{{childrenMovie.Poster}}" alt="NO PICTURE"><span
+                class="topMovieTitle">{{childrenMovie.Title}}</span><span class="topMovieImdbRating"><i class="fa fa-star"
+                    aria-hidden="true"></i>
+                <p>{{childrenMovie.movieDescription.imdbRating}}</p>
+            </span></li>
+    </ul>
+</section>
+
+<section class="tvSeries">
+        <span class="tvSeriesHeader">HOT TV-SERIES</span>
+    <ul class="img-list">
+        <li *ngFor="let topSerie of topTvSeries" (click)="movieDetail(topSerie)"><img src="{{topSerie.Poster}}" alt="NO PICTURE"><span
+                class="topMovieTitle">{{topSerie.Title}}</span><span class="topMovieImdbRating"><i class="fa fa-star"
+                    aria-hidden="true"></i>
+                <p>{{topSerie.movieDescription.imdbRating}}</p>
+            </span></li>
     </ul>
 </section>
 
 
 
-<button (click)="logout()" mat-raised-button color="primary">Logout</button>
+<button (click)="logout()" mat-raised-button color="warn">Logout</button>

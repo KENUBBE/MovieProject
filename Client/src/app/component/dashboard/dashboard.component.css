@@ -2,12 +2,17 @@ h1 {
     display: flex;
     justify-content: center;
     margin-top: 25px;
+    color: white;
 }
 
 .mat-form-field[_ngcontent-c1] {
     margin-left: 25%;
 	margin-bottom: 30px;
     width: 50%;
+}
+
+::ng-deep .mat-input-underline{
+    border-bottom: 1px solid red !important;
 }
 
 button {
@@ -55,4 +60,77 @@ ul {
     height: 250px;
     width: 150px;
     cursor: pointer;
+}
+
+.topMovieTitle {
+    position: absolute;
+    z-index: 1;
+    width: 200px;
+    margin-top: 270px;
+    max-width: 120px;
+    margin-left: -15px;
+    word-break: break-word;
+    font-size: 11px;
+    color: white;
+}
+
+.topMovieHeader {
+    margin-left: 325px;
+    color: orange;
+    letter-spacing: 2px;
+}
+
+.childrenMovieHeader {
+    margin-left: 325px;
+    color: orange;
+    letter-spacing: 2px;
+}
+
+.tvSeriesHeader {
+    margin-left: 325px;
+    color: orange;
+    letter-spacing: 2px;
+}
+
+.topMovieImdbRating i {
+    position: absolute;
+    z-index: 1;
+    width: 200px;
+    margin-top: 272px;
+    max-width: 120px;
+    margin-left: -45px;
+    word-break: break-word;
+    font-size: 14px;
+    color: yellow;
+}
+
+.topMovieImdbRating p {
+    position: absolute;
+    z-index: 1;
+    width: 200px;
+    margin-top: 270px;
+    max-width: 120px;
+    margin-left: -28px;
+    word-break: break-word;
+    font-size: 12px;
+    color: white;
+}
+
+mat-placeholder i {
+	color: white;
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+
+input[type=text] {
+    color: grey;
+}
+
+.childrenMovie {
+    margin-top: 80px;
+}
+
+.tvSeries {
+    margin-top: 80px;
 }

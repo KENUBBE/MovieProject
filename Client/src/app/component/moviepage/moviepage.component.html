@@ -1,3 +1,5 @@
+<h1>MOVIE DETAILS</h1>
+
 <p>Title: {{selectedMovie?.Title}}</p>
 <p>Year released: {{selectedMovie.movieDescription?.Released}}</p>
 <p>Language: {{selectedMovie.movieDescription?.Language}}</p>
@@ -10,8 +12,8 @@
 <img src="{{selectedMovie?.Poster}}">
 
 <!-- <div><button mat-raised-button color="primary">Book this movie</button></div> -->
-<div><button (click)="goBack()" mat-raised-button color="primary">Go back to dashboard</button></div>
-<div><button (click)="showOnImdb()" mat-raised-button color="primary">Read about movie on imdb</button></div>
+<div><button (click)="goBack()" mat-raised-button color="warn">Go back to dashboard</button></div>
+<div><button (click)="showOnImdb()" mat-raised-button color="warn">Read about movie on imdb</button></div>
 
 
 <div class="example-wrapper">

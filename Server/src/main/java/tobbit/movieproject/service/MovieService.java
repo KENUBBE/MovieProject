@@ -1,6 +1,7 @@
 package tobbit.movieproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -13,6 +14,7 @@ import tobbit.movieproject.utils.Constants;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Service
@@ -49,26 +51,69 @@ public class MovieService implements Constants {
         return allMovies;
     }
 
-    public List<Movie> highestRatedMovies() {
-        Query query = new Query();
+    public List<Movie> highestRatedMovie() {
+        Query query = new Query().with(new Sort(Sort.Direction.DESC, "movieDescription.imdbRating"));
         query.addCriteria(
                 new Criteria().orOperator(
-                        where("movieDescription.imdbRating").is("8.0"),
-                        where("movieDescription.imdbRating").is("8.1"),
-                        where("movieDescription.imdbRating").is("8.2"),
-                        where("movieDescription.imdbRating").is("8.3"),
-                        where("movieDescription.imdbRating").is("8.4"),
-                        where("movieDescription.imdbRating").is("8.5"),
-                        where("movieDescription.imdbRating").is("8.6"),
-                        where("movieDescription.imdbRating").is("9.0"),
-                        where("movieDescription.imdbRating").is("9.1"),
-                        where("movieDescription.imdbRating").is("9.2"),
-                        where("movieDescription.imdbRating").is("9.3"),
-                        where("movieDescription.imdbRating").is("9.4"),
-                        where("movieDescription.imdbRating").is("9.5"),
-                        where("movieDescription.imdbRating").is("9.6"),
-                        where("movieDescription.imdbRating").is("9.7"),
-                        where("movieDescription.imdbRating").is("10.0")
+                        where("movieDescription.imdbRating").is("8.5").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.6").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.7").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.9").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("9.0").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("9.1").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("9.2").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("9.3").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("9.4").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("9.5").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("9.6").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("9.7").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("10.0").and("type").is("movie")
+                )
+        ).limit(5);
+
+        return mongoOperations.find(query, Movie.class);
+    }
+
+    public List<Movie> topTvSeries() {
+        Query query = new Query().with(new Sort(Sort.Direction.DESC, "movieDescription.imdbRating"));
+        query.addCriteria(
+                new Criteria().orOperator(
+                        where("movieDescription.imdbRating").is("8.5").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("8.6").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("8.7").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("8.9").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("9.0").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("9.1").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("9.2").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("9.3").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("9.4").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("9.5").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("9.6").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("9.7").and("type").is("series"),
+                        where("movieDescription.imdbRating").is("10.0").and("type").is("series")
+                )
+        ).limit(5);
+
+        return mongoOperations.find(query, Movie.class);
+    }
+
+    public List<Movie> childrenMovie() {
+        Query query = new Query().with(new Sort(Sort.Direction.DESC, "movieDescription.imdbRating"));
+        query.addCriteria(
+                new Criteria().orOperator(
+                        where("movieDescription.imdbRating").is("8.0").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.1").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.2").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.3").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.4").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.5").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.6").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.7").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.8").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("8.9").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("9.0").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("9.1").and("movieDescription.genre").regex("Animation").and("type").is("movie"),
+                        where("movieDescription.imdbRating").is("9.2").and("movieDescription.genre").regex("Animation").and("type").is("movie")
                 )
         ).limit(5);
 

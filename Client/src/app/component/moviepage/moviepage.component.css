@@ -1,3 +1,14 @@
 button {
     margin-top: 15px;
 }
+
+p {
+    color: white;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    color: white;
+}

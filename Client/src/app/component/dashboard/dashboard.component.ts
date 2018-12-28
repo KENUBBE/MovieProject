@@ -12,11 +12,15 @@ export class DashboardComponent implements OnInit {
 
   searchResult: string[] = [];
   topRatedMovies: any;
+  topTvSeries: any;
+  topChildrenMovies: any;
   myControl = new FormControl();
   userInput: any;
 
   constructor(private _router: Router, private _movieService: MovieService) { 
     this.highRatedMovies();
+    this.highRatedTvSeries();
+    this.highRatedChildrenMovies();
   }
 
   ngOnInit() {
@@ -39,6 +43,18 @@ export class DashboardComponent implements OnInit {
   highRatedMovies() {
     this._movieService.getHighRatedMovies().subscribe(res => {
       this.topRatedMovies = res.json();
+    });
+  }
+
+  highRatedTvSeries() {
+    this._movieService.getTopTvSeries().subscribe(res => {
+      this.topTvSeries = res.json();
+    });
+  }
+
+  highRatedChildrenMovies() {
+    this._movieService.getChildrenMovies().subscribe(res => {
+      this.topChildrenMovies = res.json();
     });
   }
 
