@@ -9,11 +9,9 @@ import _axios from 'axios';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor() { this.loadGapi() }
 
-  ngOnInit() {
-    this.loadGapi();
-  }
+  ngOnInit() { }
 
   loadGapi() {
     gapi.load('auth2', function () {
@@ -26,11 +24,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    gapi.auth2.getAuthInstance().grantOfflineAccess({
-      prompt: 'select_account',
-    }).then(this.signInCallback)
+    gapi.auth2.getAuthInstance().grantOfflineAccess().then(this.signInCallback)
   };
 
+  // TODO: REFACTOR
   signInCallback(authResult) {
     if (authResult.code) {
       let axiosConfig = {
@@ -44,9 +41,10 @@ export class LoginComponent implements OnInit {
       _axios.post('http://localhost:8080/verifyUser', authResult.code, axiosConfig)
         .then(data => {
           if (data.status == 200) {
+            gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse();
             let currentUser = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
-            localStorage.setItem("currentUser", currentUser);
-            window.location.replace("http://localhost:4200/dashboard");
+            localStorage.setItem('currentUser', currentUser);
+            window.location.replace("http://localhost:4200/dashboard"); // TODO: NAVIGATEWITHDATA INSTEAD!!!!!
           }
         }).catch(err => console.log("ERROR: ", err))
     }

@@ -51,6 +51,8 @@ public class MovieService implements Constants {
         return allMovies;
     }
 
+
+    //TODO: Create Array with all values and loop through instead
     public List<Movie> highestRatedMovie() {
         Query query = new Query().with(new Sort(Sort.Direction.DESC, "movieDescription.imdbRating"));
         query.addCriteria(
@@ -74,6 +76,7 @@ public class MovieService implements Constants {
         return mongoOperations.find(query, Movie.class);
     }
 
+    //TODO: Create Array with all values and loop through instead
     public List<Movie> topTvSeries() {
         Query query = new Query().with(new Sort(Sort.Direction.DESC, "movieDescription.imdbRating"));
         query.addCriteria(
@@ -97,6 +100,7 @@ public class MovieService implements Constants {
         return mongoOperations.find(query, Movie.class);
     }
 
+    //TODO: Create Array with all values and loop through instead
     public List<Movie> childrenMovie() {
         Query query = new Query().with(new Sort(Sort.Direction.DESC, "movieDescription.imdbRating"));
         query.addCriteria(

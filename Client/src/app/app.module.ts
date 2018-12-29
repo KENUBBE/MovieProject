@@ -13,12 +13,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MoviepageComponent } from './component/moviepage/moviepage.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl } from 'ng-pick-datetime';
+import { GuardService } from './provider/guard/guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'movie/:id', component: MoviepageComponent }
+  { path: 'dashboard', component: DashboardComponent, canActivate: [GuardService] },
+  { path: 'movie/:id', component: MoviepageComponent, canActivate: [GuardService] }
 ];
 
 export class DefaultIntl extends OwlDateTimeIntl {
@@ -51,6 +52,7 @@ export class DefaultIntl extends OwlDateTimeIntl {
   ],
   providers: [
     HttpClient,
+    GuardService,
     { provide: OwlDateTimeIntl, useClass: DefaultIntl }
   ],
   bootstrap: [AppComponent]

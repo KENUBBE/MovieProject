@@ -82,6 +82,7 @@ img {
     margin-top: 18px;
     font-size: 14px;
     color: orange;
+    cursor: pointer;
 }
 
 .alignBody {

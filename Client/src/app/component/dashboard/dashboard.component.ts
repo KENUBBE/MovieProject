@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MovieService } from 'src/app/provider/movie/movie.service';
 import { FormControl } from '@angular/forms';
-declare var $ : any;
+import { CLIENT_ID } from 'src/app/constants/constants';
+declare var $: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -17,13 +18,24 @@ export class DashboardComponent implements OnInit {
   myControl = new FormControl();
   userInput: any;
 
-  constructor(private _router: Router, private _movieService: MovieService) { 
+  constructor(private _router: Router, private _movieService: MovieService) {
+  }
+
+  ngOnInit() {
+    this.loadGapi();
     this.highRatedMovies();
     this.highRatedTvSeries();
     this.highRatedChildrenMovies();
   }
 
-  ngOnInit() {
+  loadGapi() {
+    gapi.load('auth2', function () {
+      console.log("GAPI LOADED");
+      gapi.auth2.init({
+        client_id: CLIENT_ID,
+        scope: "https://www.googleapis.com/auth/calendar.events"
+      })
+    });
   }
 
   searchMovies(userInput) {
@@ -67,15 +79,13 @@ export class DashboardComponent implements OnInit {
     localStorage.setItem('selectedMovie', JSON.stringify(selectedMovie));
   }
 
-  showPlot() {
-    $('.card-reveal').show();
-  }
-
-  hidePlot() {
-    $('.card-reveal').hide();
-  }
-
   logout() {
+    localStorage.clear();
+    gapi.auth2.getAuthInstance().signOut().then(this.redirectToLogin());
+  }
+
+  redirectToLogin() {
+    console.log('User logged out.');
     this._router.navigateByData({
       url: ["/login"],
       data: null

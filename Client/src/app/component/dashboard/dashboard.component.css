@@ -135,7 +135,7 @@ mat-placeholder i {
 }
    
    input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
-    color: grey !important;
+    color: whitesmoke !important;
    }
    
     input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
