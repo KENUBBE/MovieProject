@@ -7,8 +7,85 @@ p {
 }
 
 h1 {
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
+    margin-top: -50px;
+    margin-left: 430px;
     color: white;
+    position: absolute;
 }
+
+img {
+    position: absolute;
+    height: 300px;
+    width: 200px;
+    margin-left: 200px;
+    margin-top: -40px;
+}
+
+.subDescription {
+    position: absolute;
+    margin-left: 432px;
+}
+
+.subDescription span {
+    color: red;
+    font-weight: 600;
+}
+
+.imdbRating {
+    margin-left: 80%;
+    font-size: 64px;
+    margin-top: 40px;
+    position: absolute;
+}
+
+.imdbRating i {
+    color: yellow;
+    margin-right: 10px;
+}
+
+.movieDescription {
+    position: absolute;
+    margin-top: 80px;
+    margin-left: 432px;
+}
+
+.movieDescription p {
+    max-width: 700px;
+    word-break: break-word;
+}
+
+.actionButtons {
+    position: absolute;
+    margin-top: 350px;
+    margin-left: 520px;
+}
+
+.actionButtons button {
+    margin-left: 50px;
+    width: 200px;
+    margin-top: 50px;
+}
+
+.datePicker {
+    position: absolute;
+    margin-left: 700px;
+    margin-top: 300px;
+}
+
+.datePicker input::placeholder {
+    color: grey;
+}
+
+.datePicker i {
+    position: absolute;
+    margin-left: -20px;
+    margin-top: 18px;
+    font-size: 14px;
+    color: orange;
+}
+
+.alignBody {
+    margin-top: 200px;
+}
+
+

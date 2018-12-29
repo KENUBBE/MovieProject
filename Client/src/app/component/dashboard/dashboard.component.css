@@ -5,14 +5,19 @@ h1 {
     color: white;
 }
 
-.mat-form-field[_ngcontent-c1] {
-    margin-left: 25%;
-	margin-bottom: 30px;
-    width: 50%;
+::ng-deep .mat-form-field {
+    margin-left: 25% !important;
+	margin-bottom: 30px !important;
+    width: 50% !important;
 }
 
-::ng-deep .mat-input-underline{
+
+::ng-deep .mat-input-underline .mat-focused {
     border-bottom: 1px solid red !important;
+}
+
+::ng-deep .mat-input-underline {
+    color: transparent !important;
 }
 
 button {
@@ -20,6 +25,7 @@ button {
     margin-top: 6%;
     display:block;
     width: 15%;
+    margin-bottom: 50px;
 }
 
 .fa-info-circle {
@@ -46,9 +52,7 @@ button {
 .img-list li {
     display: flex;
     justify-content: center;
-    
 }
-
 
 ul {
     display: flex;
@@ -122,11 +126,6 @@ mat-placeholder i {
     margin-right: 5px;
 }
 
-
-input[type=text] {
-    color: grey;
-}
-
 .childrenMovie {
     margin-top: 80px;
 }
@@ -134,3 +133,13 @@ input[type=text] {
 .tvSeries {
     margin-top: 80px;
 }
+   
+   input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+    color: grey !important;
+   }
+   
+    input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+    border-bottom: 0px solid black !important;
+    box-shadow: 0 0px 0 0 black !important;
+   }
+
