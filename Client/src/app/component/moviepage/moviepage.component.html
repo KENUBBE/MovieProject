@@ -26,8 +26,8 @@
 </span>
 
 <div class="example-wrapper datePicker">
-    <label class="example-input-wrapper">
-        <input placeholder="Click to choose date" (dateTimeInput)="addEvent($event)" [owlDateTimeTrigger]="dt"
+    <label class="example-input-wrapper" id="eventInputSuccess">
+        <input id="eventInputError" placeholder="Click to choose date" (dateTimeInput)="addEvent($event)" [owlDateTimeTrigger]="dt"
             [owlDateTime]="dt"><i class="fa fa-calendar" aria-hidden="true"></i>
         <owl-date-time #dt></owl-date-time>
     </label>

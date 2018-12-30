@@ -25,17 +25,17 @@ public class MovieController {
     }
 
     @GetMapping("/api/highRatedMovies")
-    public ResponseEntity<List<Movie>> highRatedMovie(){
+    public ResponseEntity<List<Movie>> highRatedMovie() {
         return ResponseEntity.ok(movieService.highestRatedMovie());
     }
 
     @GetMapping("/api/topTvSeries")
-    public ResponseEntity<List<Movie>> topTvSeries(){
+    public ResponseEntity<List<Movie>> topTvSeries() {
         return ResponseEntity.ok(movieService.topTvSeries());
     }
 
     @GetMapping("/api/childrenMovies")
-    public ResponseEntity<List<Movie>> childrenMovies(){
+    public ResponseEntity<List<Movie>> childrenMovies() {
         return ResponseEntity.ok(movieService.childrenMovie());
     }
 }

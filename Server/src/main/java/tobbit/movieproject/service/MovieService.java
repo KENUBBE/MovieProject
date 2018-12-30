@@ -51,7 +51,6 @@ public class MovieService implements Constants {
         return allMovies;
     }
 
-
     //TODO: Create Array with all values and loop through instead
     public List<Movie> highestRatedMovie() {
         Query query = new Query().with(new Sort(Sort.Direction.DESC, "movieDescription.imdbRating"));

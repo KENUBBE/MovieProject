@@ -17,15 +17,18 @@ export class DashboardComponent implements OnInit {
   topChildrenMovies: any;
   myControl = new FormControl();
   userInput: any;
+  logoutInterval: any;
 
-  constructor(private _router: Router, private _movieService: MovieService) {
-  }
+  constructor(private _router: Router, private _movieService: MovieService) {}
 
   ngOnInit() {
     this.loadGapi();
     this.highRatedMovies();
     this.highRatedTvSeries();
     this.highRatedChildrenMovies();
+    this.logoutInterval = setInterval(() => {
+      this.logoutDueInactivity();
+    }, 1800000);
   }
 
   loadGapi() {
@@ -80,8 +83,12 @@ export class DashboardComponent implements OnInit {
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem('currentUser');
     gapi.auth2.getAuthInstance().signOut().then(this.redirectToLogin());
+  }
+
+  logoutDueInactivity() {
+    localStorage.removeItem('currentUser');
   }
 
   redirectToLogin() {

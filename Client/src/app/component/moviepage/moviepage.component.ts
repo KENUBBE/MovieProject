@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CalendarService } from 'src/app/provider/calendar/calendar.service';
 import { MovieService } from 'src/app/provider/movie/movie.service';
 
+
 @Component({
   selector: 'app-moviepage',
   templateUrl: './moviepage.component.html',
@@ -13,9 +14,9 @@ export class MoviepageComponent implements OnInit, OnDestroy {
   selectedMovie: any;
   movieDescription: any[] = [];
 
-  constructor(private _router: Router, private _calendarService: CalendarService, private _movieService : MovieService) {
+  constructor(private _router: Router, private _calendarService: CalendarService, private _movieService: MovieService) {
     this.selectedMovie = JSON.parse(localStorage.getItem('selectedMovie'));
-   }
+  }
 
   ngOnInit() {
   }
@@ -38,10 +39,18 @@ export class MoviepageComponent implements OnInit, OnDestroy {
       'startDate': event.value,
       'createdBy': localStorage.getItem("currentUser")
     };
-    this._calendarService.createEvent(newEvent).subscribe(res => console.log(res));
+    this._calendarService.createEvent(newEvent).subscribe(res => {
+      if (res.status = 200) {
+        document.getElementById('eventInputSuccess').innerText = 'HAVE FUN!';
+        document.getElementById('eventInputSuccess').classList.add('eventInputSuccess');
+      } else {
+        alert('Something went wrong, please try again!');
+      }
+    });
   }
 
   showOnImdb() {
-    window.location.href = `https://www.imdb.com/title/${this.selectedMovie.imdbID}`;
+    window.open(`https://www.imdb.com/title/${this.selectedMovie.imdbID}`);
   }
+
 }

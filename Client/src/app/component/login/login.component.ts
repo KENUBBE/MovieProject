@@ -38,10 +38,10 @@ export class LoginComponent implements OnInit {
         }
       };
 
-      _axios.post('http://localhost:8080/verifyUser', authResult.code, axiosConfig)
+      _axios.post('http://localhost:8080/api/verifyUser', authResult.code, axiosConfig)
         .then(data => {
           if (data.status == 200) {
-            gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse();
+            //gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse();
             let currentUser = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
             localStorage.setItem('currentUser', currentUser);
             window.location.replace("http://localhost:4200/dashboard"); // TODO: NAVIGATEWITHDATA INSTEAD!!!!!

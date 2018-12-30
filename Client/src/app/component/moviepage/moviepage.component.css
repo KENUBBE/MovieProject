@@ -89,4 +89,16 @@ img {
     margin-top: 200px;
 }
 
+.eventInputSuccess {
+    color: #89ff00;
+    font-size: 24px;
+    margin-left: 35px;
+    font-weight: 600;
+}
+
+.eventInputError {
+    color: red;
+    
+}
+
 
