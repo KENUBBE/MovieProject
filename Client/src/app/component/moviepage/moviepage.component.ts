@@ -41,7 +41,7 @@ export class MoviepageComponent implements OnInit, OnDestroy {
     };
     this._calendarService.createEvent(newEvent).subscribe(res => {
       if (res.status = 200) {
-        document.getElementById('eventInputSuccess').innerText = 'HAVE FUN!';
+        document.getElementById('eventInputSuccess').innerHTML = 'HAVE FUN!';
         document.getElementById('eventInputSuccess').classList.add('eventInputSuccess');
       } else {
         alert('Something went wrong, please try again!');

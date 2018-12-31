@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MovieService } from 'src/app/provider/movie/movie.service';
 import { FormControl } from '@angular/forms';
 import { CLIENT_ID } from 'src/app/constants/constants';
-declare var $: any;
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
