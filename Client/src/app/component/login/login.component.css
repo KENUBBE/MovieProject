@@ -1,7 +1,7 @@
 .signinButton {
     text-transform: none;
     margin-left: 42.5%; 
-    margin-top: 100px;
+    margin-top: 45px;
     width: 15%;
 }
 
@@ -23,7 +23,7 @@
 .plot {
     display: flex; 
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 .plot p {
@@ -32,4 +32,14 @@
     text-align: center;
     font-style: italic;
     color: whitesmoke;
+}
+
+.imgDiv {
+    display: flex;
+    justify-content: center;
+    margin-top: -50px;
+}
+
+.imgDiv img {
+    margin: 25px;
 }
