@@ -8,7 +8,6 @@ import tobbit.movieproject.model.UserEvent;
 import tobbit.movieproject.service.CalendarService;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
 public class CalendarController {
 
     private final CalendarService calendarService;

@@ -7,8 +7,9 @@ import tobbit.movieproject.repository.UserRepository;
 import tobbit.movieproject.service.UserService;
 import tobbit.movieproject.utils.Constants;
 
+import java.security.Principal;
+
 @RestController
-@CrossOrigin("http://localhost:4200")
 public class AuthController implements Constants {
 
     private final UserService userService;

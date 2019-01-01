@@ -1,6 +1,8 @@
 package tobbit.movieproject.controller;
 
+import com.google.api.client.json.webtoken.JsonWebToken;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import tobbit.movieproject.model.Movie;
@@ -9,7 +11,6 @@ import tobbit.movieproject.service.MovieService;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
 public class MovieController {
 
     private final MovieService movieService;

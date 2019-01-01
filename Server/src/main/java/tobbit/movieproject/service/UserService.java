@@ -21,7 +21,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final CalendarService calendarService;
 
-
     @Autowired
     public UserService(UserRepository userRepository, CalendarService calendarService) {
         this.userRepository = userRepository;
