@@ -14,12 +14,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MoviepageComponent } from './component/moviepage/moviepage.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl } from 'ng-pick-datetime';
 import { GuardService } from './provider/guard/guard.service';
+import { UserpageComponent } from './component/userpage/userpage.component';
+import { MzModalModule, MzButtonModule, MzInputModule, MzSelectModule } from 'ngx-materialize'
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [GuardService] },
-  { path: 'movie/:id', component: MoviepageComponent, canActivate: [GuardService] }
+  { path: 'movie/:id', component: MoviepageComponent, canActivate: [GuardService] },
+  { path: 'user/:id', component: UserpageComponent, canActivate: [GuardService] }
 ];
 
 export class DefaultIntl extends OwlDateTimeIntl {
@@ -32,9 +35,14 @@ export class DefaultIntl extends OwlDateTimeIntl {
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    MoviepageComponent
+    MoviepageComponent,
+    UserpageComponent
   ],
   imports: [
+    MzSelectModule,
+    MzInputModule,
+    MzButtonModule,
+    MzModalModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatButtonModule,

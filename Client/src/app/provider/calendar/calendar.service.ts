@@ -9,10 +9,11 @@ export class CalendarService {
   constructor(private _httpService: HttpService) { }
 
   public getUserCalendar(){
-    return this._httpService.get("/api/userEvent");
+    return this._httpService.get('/api/userEvent');
   }
 
   public createEvent(value){
-    return this._httpService.post("/api/scheduleEvent", value);
+    return this._httpService.post('/api/scheduleEvent', value);
   }
+  
 }

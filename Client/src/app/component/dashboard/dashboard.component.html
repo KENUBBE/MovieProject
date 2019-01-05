@@ -1,5 +1,9 @@
 <h1>MOVIE SECTION</h1>
 
+<div class="myPageIcon" (click)="redirectToMyPage()">
+    <i class="fa fa-user"></i>
+</div>
+
 <mat-form-field color="warn" class="example-full-width">
     <input type="text" [(ngModel)]="userInput" placeholder="Search for title" (keyup)="clearOptions(userInput)" (keyup)="searchMovies(userInput)"
         matInput [formControl]="myControl" [matAutocomplete]="auto">
@@ -43,7 +47,5 @@
             </span></li>
     </ul>
 </section>
-
-
 
 <button (click)="logout()" mat-raised-button color="warn">Logout</button>

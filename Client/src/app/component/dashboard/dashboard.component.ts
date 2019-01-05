@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   userInput: any;
   logoutInterval: any;
 
-  constructor(private _router: Router, private _movieService: MovieService) {}
+  constructor(private _router: Router, private _movieService: MovieService) { }
 
   ngOnInit() {
     this.loadGapi();
@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
       gapi.auth2.init({
         client_id: CLIENT_ID,
         scope: "https://www.googleapis.com/auth/calendar.events"
-      })
+      });
     });
   }
 
@@ -73,7 +73,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-
   movieDetail(selectedMovie) {
     this._router.navigateByData({
       url: ['/movie', selectedMovie.imdbID],
@@ -83,19 +82,27 @@ export class DashboardComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
     gapi.auth2.getAuthInstance().signOut().then(this.redirectToLogin());
+    localStorage.removeItem('currentUser');
   }
 
   logoutDueInactivity() {
     localStorage.removeItem('currentUser');
   }
 
+  redirectToMyPage() {
+    this._router.navigateByData({
+      url: ['/user', localStorage.getItem('currentUser')],
+      data: 0
+    });
+  }
+
   redirectToLogin() {
     console.log('User logged out.');
     this._router.navigateByData({
-      url: ["/login"],
-      data: null
+      url: ['/login'],
+      data: 0
     });
   }
+
 }

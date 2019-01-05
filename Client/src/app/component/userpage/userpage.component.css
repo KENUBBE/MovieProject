@@ -1,0 +1,118 @@
+.userSection {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-left: 100px;
+    z-index: 0;
+}
+
+.userInfo .userImg {
+    width: 150px;
+    border-radius: 100px;
+}
+
+.userInfo .userName {
+    color: whitesmoke;
+    text-align: left;
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    font-size: 14px;
+}
+
+.bookedNights {
+    z-index: 100;
+    margin-top: 50px;
+    margin-left: 500px;
+}
+
+.bookedNights li .movieTitle {
+    margin-left: 15px;
+    color: whitesmoke;
+}
+
+.bookedNights li .startDate {
+    margin-left: 15px;
+    color: whitesmoke;
+}
+
+.bookedNights li img {
+    width: 50px;
+    margin-top: 25px;
+}
+
+.seperator {
+    margin-left: 5px;
+    color: red;
+    font-weight: 600;
+}
+
+.groupSection {
+    z-index: 100;
+    margin-top: 50px;
+    margin-left: 500px;
+}
+
+.groupSection li .groupTitle {
+    margin-left: 20px;
+    color: whitesmoke;
+}
+
+.groupSection li .startDate {
+    margin-left: 12px;
+    color: whitesmoke;
+}
+
+.groupSection li img {
+    width: 50px;
+    margin-top: 20px;
+}
+
+.seperator {
+    margin-left: 15px;
+    color: red;
+    font-weight: 600;
+}
+
+h5 {
+    color: orange;
+    letter-spacing: 2px;
+}
+
+.verticle-line {
+    z-index: 100;
+    width: 1px;
+    min-height: 750px;
+    background: red;
+    margin-left: 53%;
+    margin-top: -750px;
+  }
+
+  .logoutButton {
+    margin: 45.5%;
+    margin-top: 50px;
+    display:block;
+    width: 15%;
+    margin-bottom: 50px;
+}
+
+.addIcon {
+    color: green;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.modal-form-row {
+    margin-bottom: 0px;
+  }
+
+  mz-modal-header h4 {
+    display: flex;
+    justify-content: center;
+  }
+
+  .input-field {
+      width: 50%;
+  }
+
+

@@ -143,3 +143,15 @@ mat-placeholder i {
     box-shadow: 0 0px 0 0 black !important;
    }
 
+.myPageIcon {
+    position: absolute;
+    margin-left: 90%;
+    margin-top: -10px;
+    cursor: pointer;
+}
+
+.myPageIcon i {
+    font-size: 42px;
+    color: red;
+}
+

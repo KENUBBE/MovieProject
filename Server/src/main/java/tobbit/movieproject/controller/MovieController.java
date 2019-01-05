@@ -1,8 +1,6 @@
 package tobbit.movieproject.controller;
 
-import com.google.api.client.json.webtoken.JsonWebToken;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import tobbit.movieproject.model.Movie;

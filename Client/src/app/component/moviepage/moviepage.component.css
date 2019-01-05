@@ -6,11 +6,12 @@ p {
     color: white;
 }
 
-h1 {
-    margin-top: -50px;
+h4 {
+    margin-top: -45px;
     margin-left: 430px;
     color: white;
     position: absolute;
+    
 }
 
 img {
@@ -24,6 +25,7 @@ img {
 .subDescription {
     position: absolute;
     margin-left: 432px;
+    margin-top: 8px;
 }
 
 .subDescription span {

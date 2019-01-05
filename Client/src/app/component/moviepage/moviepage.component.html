@@ -1,35 +1,35 @@
-<h1>{{selectedMovie?.Title}}</h1>
+<h4>{{selectedMovie?.Title}}</h4>
 
 <div class="alignBody">
-<img src="{{selectedMovie?.Poster}}">
+    <img src="{{selectedMovie?.Poster}}">
 
-<span class="subDescription">
-    <p>{{selectedMovie.movieDescription?.Runtime}}
-        <span>|</span> {{selectedMovie.movieDescription?.Genre}}
-        <span>|</span> {{selectedMovie.movieDescription?.Language}}</p>
-</span>
+    <span class="subDescription">
+        <p>{{selectedMovie.movieDescription?.Runtime}}
+            <span>|</span> {{selectedMovie.movieDescription?.Genre}}
+            <span>|</span> {{selectedMovie.movieDescription?.Language}}</p>
+    </span>
 
-<span class="imdbRating">
-    <p><i class="fa fa-star" aria-hidden="true"></i>{{selectedMovie.movieDescription?.imdbRating}}</p>
-</span>
+    <span class="imdbRating">
+        <p><i class="fa fa-star" aria-hidden="true"></i>{{selectedMovie.movieDescription?.imdbRating}}</p>
+    </span>
 
-<div class="movieDescription">
-    <p>Release Date: {{selectedMovie.movieDescription?.Released}}</p>
-    <p>Language: {{selectedMovie.movieDescription?.Language}}</p>
-    <p>Actors: {{selectedMovie.movieDescription?.Actors}}</p>
-    <p>Plot: {{selectedMovie.movieDescription?.Plot}}</p>
-</div>
+    <div class="movieDescription">
+        <p>Release Date: {{selectedMovie.movieDescription?.Released}}</p>
+        <p>Language: {{selectedMovie.movieDescription?.Language}}</p>
+        <p>Actors: {{selectedMovie.movieDescription?.Actors}}</p>
+        <p>Plot: {{selectedMovie.movieDescription?.Plot}}</p>
+    </div>
 
-<span class="actionButtons">
-    <button (click)="goBack()" mat-raised-button color="warn">Return to movie section</button>
-    <button (click)="showOnImdb()" mat-raised-button color="warn">Read about movie on imdb</button>
-</span>
+    <span class="actionButtons">
+        <button (click)="goBack()" mat-raised-button color="warn">Return to movie section</button>
+        <button (click)="showOnImdb()" mat-raised-button color="warn">Read about movie on imdb</button>
+    </span>
 
-<div class="example-wrapper datePicker">
-    <label class="example-input-wrapper" id="eventInputSuccess">
-        <input id="eventInputError" placeholder="Click to choose date" (dateTimeInput)="addEvent($event)" [owlDateTimeTrigger]="dt"
-            [owlDateTime]="dt"><i class="fa fa-calendar" aria-hidden="true"></i>
-        <owl-date-time #dt></owl-date-time>
-    </label>
-</div>
+    <div class="example-wrapper datePicker">
+        <label class="example-input-wrapper" id="eventInputSuccess">
+            <input id="eventInputError" placeholder="Click to choose date" (dateTimeInput)="addEvent($event)"
+                [owlDateTimeTrigger]="dt" [owlDateTime]="dt"><i class="fa fa-calendar" aria-hidden="true"></i>
+            <owl-date-time #dt [pickerMode]="'dialog'"></owl-date-time>
+        </label>
+    </div>
 </div>

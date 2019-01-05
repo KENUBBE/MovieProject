@@ -1,0 +1,73 @@
+<section class="userSection">
+  <div class="userInfo">
+    <img class="userImg" src="{{userImg}}">
+    <!-- <p class="userName">{{userName.toUpperCase()}}</p> -->
+  </div>
+</section>
+
+<section class="bookedNights">
+  <h5>SCHEDULED NIGHTS</h5>
+  <ul>
+    <li><img src="https://m.media-amazon.com/images/M/MV5BMDliMmNhNDEtODUyOS00MjNlLTgxODEtN2U3NzIxMGVkZTA1L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"><span
+        class="movieTitle">Quisque ac quam accumsan, cursus dui consequat</span><span class="seperator">|</span><span
+        class="startDate">2017-02-20 16:00</span></li>
+    <li><img src="https://m.media-amazon.com/images/M/MV5BZjMxYzBiNjUtZDliNC00MDAyLTg3N2QtOWNjNmNhZGQzNDg5XkEyXkFqcGdeQXVyNjE2MjQwNjc@._V1_SX300.jpg"><span
+        class="movieTitle">Quisque ac quam accumsan, cursus dui consequat</span><span class="seperator">|</span><span
+        class="startDate">2017-02-20 16:00</span></li>
+    <li><img src="https://m.media-amazon.com/images/M/MV5BMTgxOTY4Mjc0MF5BMl5BanBnXkFtZTcwNTA4MDQyMw@@._V1_SX300.jpg"><span
+        class="movieTitle">Quisque ac quam accumsan, cursus dui consequat</span><span class="seperator">|</span><span
+        class="startDate">2017-02-20 16:00</span></li>
+  </ul>
+</section>
+
+<section class="groupSection">
+  <h5>GROUPS<i mz-button (click)="basic.openModal()" class="addIcon modal-trigger fa fa-plus-circle"></i></h5>
+  <ul>
+    <li><img src="/src/assets/img/groupPic.png"><span class="groupTitle">Quisque ac quam accumsan, cursus dui consequat</span><span
+        class="seperator">|</span><span class="startDate">2017-02-20 16:00</span></li>
+    <li><img src="/src/assets/img/groupPic.png"><span class="groupTitle">Quisque ac quam accumsan, cursus dui consequat</span><span
+        class="seperator">|</span><span class="startDate">2017-02-20 16:00</span></li>
+    <li><img src="/src/assets/img/groupPic.png"><span class="groupTitle">Quisque ac quam accumsan, cursus dui consequat</span><span
+        class="seperator">|</span><span class="startDate">2017-02-20 16:00</span></li>
+  </ul>
+</section>
+
+<!-- <div class="verticle-line"></div> -->
+
+<mz-modal #basic [fixedFooter]="true" [bottomSheet]="false" [options]="modalOptions">
+  <mz-modal-header>
+    <h4>Create Group</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <mz-input-container>
+        <input mz-input
+          [label]="'Group Name'"
+          [validate]="true"
+          id="groupName"
+          length="25"
+          type="text">
+      </mz-input-container>
+      <mz-input-container>
+          <input mz-input
+            [label]="'Description'"
+            [validate]="true"
+            id="groupName"
+            length="50"
+            type="text">
+        </mz-input-container>
+        <mz-select-container>
+            <select multiple mz-select
+              id="options-select"
+              [placeholder]="'Add Members'">
+                <option data-icon="LOOOOOOOOOOOOOOOOOOOL" class="left circle">Option 1</option>
+                <option data-icon="assets/select-icon-2.jpg" class="left circle">Option 2</option>
+            </select>
+          </mz-select-container>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>CLOSE</button>
+    <button mz-button [flat]="true" mz-modal-close>CREATE</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<button (click)="goBack()" class="logoutButton" mat-raised-button color="warn">Go Back</button>
