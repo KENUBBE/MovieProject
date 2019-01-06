@@ -10,6 +10,8 @@ import tobbit.movieproject.model.User;
 import tobbit.movieproject.repository.UserRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static tobbit.movieproject.utils.Constants.CLIENT_ID;
 import static tobbit.movieproject.utils.Constants.CLIENT_SECRET;
@@ -67,4 +69,14 @@ public class UserService {
         if (!userRepository.existsByEmail(email))
             userRepository.save(new User(email, accessToken, refreshToken, expiresAt));
     }
+
+    public List<String> getAllUsers() {
+        List<String> userEmail = new ArrayList<>();
+        List<User> userList = userRepository.findAll();
+        for (User u : userList) {
+            userEmail.add(u.getEmail());
+        }
+        return userEmail;
+    }
+
 }

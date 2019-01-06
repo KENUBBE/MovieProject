@@ -83,11 +83,11 @@ export class DashboardComponent implements OnInit {
 
   logout() {
     gapi.auth2.getAuthInstance().signOut().then(this.redirectToLogin());
-    localStorage.removeItem('currentUser');
+    localStorage.clear();
   }
 
   logoutDueInactivity() {
-    localStorage.removeItem('currentUser');
+    localStorage.clear();
   }
 
   redirectToMyPage() {

@@ -26,6 +26,7 @@ public class UserEvent {
         this.createdBy = createdBy;
     }
 
+
     public String getCreatedBy() {
         return createdBy;
     }

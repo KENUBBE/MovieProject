@@ -75,7 +75,6 @@ public class CalendarService implements Constants {
             event
                     .setSummary(summary)
                     .setDescription("Booked on http://movienights.se");
-
             EventDateTime start = new EventDateTime()
                     .setDateTime(startDateTime);
             event.setStart(start);
@@ -96,6 +95,7 @@ public class CalendarService implements Constants {
             e.printStackTrace();
         }
         System.out.printf("Event created: %s\n", event.getHtmlLink());
+
         return event;
     }
 }

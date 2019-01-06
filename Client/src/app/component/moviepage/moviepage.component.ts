@@ -37,7 +37,7 @@ export class MoviepageComponent implements OnInit, OnDestroy {
     let newEvent = {
       'summary': 'Tonights scheduled movie: ' + this.selectedMovie.Title,
       'startDate': event.value,
-      'createdBy': localStorage.getItem("currentUser")
+      'createdBy': localStorage.getItem("currentUser"),
     };
     this._calendarService.createEvent(newEvent).subscribe(res => {
       if (res.status = 200) {

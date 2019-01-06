@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     margin-top: 50px;
-    margin-left: 100px;
     z-index: 0;
 }
 
@@ -63,13 +62,16 @@
     color: whitesmoke;
 }
 
+.groupSection li {
+    margin-top: 15px;
+}
+
 .groupSection li img {
     width: 50px;
-    margin-top: 20px;
 }
 
 .seperator {
-    margin-left: 15px;
+    margin-left: 8px;
     color: red;
     font-weight: 600;
 }
@@ -77,6 +79,7 @@
 h5 {
     color: orange;
     letter-spacing: 2px;
+    margin-bottom: 25px;
 }
 
 .verticle-line {
@@ -87,14 +90,6 @@ h5 {
     margin-left: 53%;
     margin-top: -750px;
   }
-
-  .logoutButton {
-    margin: 45.5%;
-    margin-top: 50px;
-    display:block;
-    width: 15%;
-    margin-bottom: 50px;
-}
 
 .addIcon {
     color: green;
@@ -114,5 +109,45 @@ h5 {
   .input-field {
       width: 50%;
   }
+
+  #options-select {
+      color: red;
+  }
+
+  .groupMembers {
+      margin-left: 8px;
+      color: grey;
+      font-size: 14px;
+  }
+
+  .groupSectionNoContent {
+      display: flex; 
+      justify-content: center;
+      text-align: center;
+      margin-top: 50px;
+  }
+
+  .groupSectionNoContent .header {
+      font-size: 24px;
+      color: grey;
+  }
+
+  .groupSectionNoContent .subheader {
+      color: grey;
+  }
+
+  .groupSectionNoContent i {
+      font-size: 64px;
+  }
+
+  .logoutDiv {
+      display: flex;
+      justify-content: center;
+  }
+  
+  .logoutDiv .logoutButton {
+    margin-top: 150px;
+    width: 15%;
+}
 
 

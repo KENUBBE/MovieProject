@@ -13,6 +13,8 @@ public class User {
         this.expiresAt = expiresAt;
     }
 
+    public User(){}
+
     public String getEmail() {
         return email;
     }
