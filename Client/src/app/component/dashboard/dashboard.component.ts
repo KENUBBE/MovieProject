@@ -87,12 +87,13 @@ export class DashboardComponent implements OnInit {
   }
 
   logoutDueInactivity() {
+    gapi.auth2.getAuthInstance().signOut().then(this.redirectToLogin());
     localStorage.clear();
   }
 
   redirectToMyPage() {
     this._router.navigateByData({
-      url: ['/user', localStorage.getItem('currentUser')],
+      url: ['/user', localStorage.getItem('currentUser').replace('@gmail.com', '')],
       data: 0
     });
   }
