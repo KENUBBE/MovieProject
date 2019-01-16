@@ -33,6 +33,43 @@ public class CalendarService implements Constants {
         this.mongoOperations = mongoOperations;
     }
 
+    public List<UserEvent> getAllUserEvents() {
+        List<User> allUsers = userRepository.findAll();
+        List<UserEvent> allEvents = new ArrayList<>();
+        DateTime now = new DateTime(System.currentTimeMillis());
+        for (int i = 0; i < allUsers.size(); i++) {
+            Events events = null;
+            try {
+                events = createCalendarService(allUsers.get(i).getEmail()).events().list(allUsers.get(i).getEmail())
+                        .setTimeMin(now)
+                        .execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            List<Event> items = null;
+            if (events != null) {
+                items = events.getItems();
+            }
+            if (items == null) {
+                System.out.println("No events found");
+            } else {
+                for (Event event : items) {
+                    DateTime start = event.getStart().getDateTime();
+                    if (start == null) {
+                        start = event.getStart().getDate();
+                    }
+                    DateTime end = event.getEnd().getDateTime();
+                    if (end == null) {
+                        end = event.getEnd().getDate();
+                    }
+                    allEvents.add(new UserEvent(event.getSummary(), start, end, allUsers.get(i).getEmail()));
+                }
+            }
+        }
+
+        return allEvents;
+    }
+
     private Calendar createCalendarService(String email) {
         User currentUser = userRepository.findByEmail(email);
         GoogleCredential credential = new GoogleCredential().setAccessToken(currentUser.getAccessToken());
@@ -54,7 +91,7 @@ public class CalendarService implements Constants {
         }
     }
 
-    void updateToken() {
+    public void updateToken() {
         List<User> allUsers = userRepository.findAll();
         for (int i = 0; i < allUsers.size(); i++) {
             GoogleCredential newCredentials = refreshCredentials(allUsers.get(i).getRefreshToken());

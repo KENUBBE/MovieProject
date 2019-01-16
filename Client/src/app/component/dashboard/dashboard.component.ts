@@ -33,7 +33,6 @@ export class DashboardComponent implements OnInit {
 
   loadGapi() {
     gapi.load('auth2', function () {
-      console.log("GAPI LOADED");
       gapi.auth2.init({
         client_id: CLIENT_ID,
         scope: "https://www.googleapis.com/auth/calendar.events"
@@ -99,7 +98,6 @@ export class DashboardComponent implements OnInit {
   }
 
   redirectToLogin() {
-    console.log('User logged out.');
     this._router.navigateByData({
       url: ['/login'],
       data: 0

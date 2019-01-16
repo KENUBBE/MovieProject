@@ -46,12 +46,14 @@ export class UserpageComponent implements OnInit {
       'members': this.groupMember,
       'createdBy': this.userEmail
     };
-    this._userService.createGroup(newGroup).subscribe(res => console.log(res));
+    this._userService.createGroup(newGroup).subscribe();
     window.location.reload();
   }
 
   getUserGroup() {
-    this._userService.getUserGroup(this.userEmail).subscribe(res => this.userGroups = res.json());
+    this._userService.getUserGroup(this.userEmail).subscribe(res => {
+      this.userGroups = res.json()
+    });
   }
 
   goBack() {

@@ -8,3 +8,14 @@ body {
     background-color: black;
 }
 
+/* .owl-dt-calendar-table .owl-dt-calendar-cell-disabled {
+    cursor: default;
+    background-color: red !important;
+    border-radius: 80px !important;
+} */
+
+  .owl-dt-calendar-table .owl-dt-calendar-cell-disabled>.owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected) {
+    color: red !important;
+    font-weight: 500;
+}
+

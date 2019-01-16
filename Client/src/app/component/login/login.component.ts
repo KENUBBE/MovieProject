@@ -17,10 +17,9 @@ export class LoginComponent implements OnInit {
 
   loadGapi() {
     gapi.load('auth2', function () {
-      console.log("GAPI LOADED");
       gapi.auth2.init({
         client_id: CLIENT_ID,
-        scope: "https://www.googleapis.com/auth/calendar.events"
+        scope: "https://www.googleapis.com/auth/calendar.events",
       });
     });
   }
