@@ -36,14 +36,12 @@ public class CalendarService implements Constants {
     public List<UserEvent> getAllUserEvents() {
         List<User> allUsers = userRepository.findAll();
         List<UserEvent> allEvents = new ArrayList<>();
-        updateToken();
+        DateTime now = new DateTime(System.currentTimeMillis());
         for (int i = 0; i < allUsers.size(); i++) {
-            final DateTime startDate = new DateTime("2018-10-05T16:30:00.000+05:30"); // Change to now when done!
             Events events = null;
             try {
                 events = createCalendarService(allUsers.get(i).getEmail()).events().list(allUsers.get(i).getEmail())
-                        .setTimeMin(startDate)
-                        .setSingleEvents(true)
+                        .setTimeMin(now)
                         .execute();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -64,7 +62,7 @@ public class CalendarService implements Constants {
                     if (end == null) {
                         end = event.getEnd().getDate();
                     }
-                    allEvents.add(new UserEvent(event.getSummary(), start, end, "Not announced"));
+                    allEvents.add(new UserEvent(event.getSummary(), start, end, allUsers.get(i).getEmail()));
                 }
             }
         }
@@ -93,23 +91,12 @@ public class CalendarService implements Constants {
         }
     }
 
-    private void updateToken() {
+    public void updateToken() {
         List<User> allUsers = userRepository.findAll();
         for (int i = 0; i < allUsers.size(); i++) {
-            long expiresAt = allUsers.get(i).getExpiresAt();
-            long now = new DateTime(System.currentTimeMillis()).getValue();
-            if (hasTokenExpired(expiresAt, now)) {
-                System.out.println("TOKEN EXPIRED");
-                GoogleCredential newCredentials = refreshCredentials(allUsers.get(i).getRefreshToken());
-                updateUser(allUsers.get(i).getEmail(), newCredentials.getAccessToken());
-            }
+            GoogleCredential newCredentials = refreshCredentials(allUsers.get(i).getRefreshToken());
+            updateUser(allUsers.get(i).getEmail(), newCredentials.getAccessToken());
         }
-    }
-
-    private boolean hasTokenExpired(long expiresAt, long now) {
-        org.joda.time.DateTime expire = new org.joda.time.DateTime(expiresAt);
-        org.joda.time.DateTime current = new org.joda.time.DateTime(now);
-        return current.isAfter(expire);
     }
 
     private void updateUser(String email, String accessToken) {
@@ -118,7 +105,6 @@ public class CalendarService implements Constants {
     }
 
     public Event scheduleEvent(String summary, DateTime startDateTime, String eventCreatedBy) {
-        updateToken();
         List<User> allUsers = userRepository.findAll();
         List<EventAttendee> allAttendees = new ArrayList<>();
         Event event = new Event();
@@ -126,7 +112,6 @@ public class CalendarService implements Constants {
             event
                     .setSummary(summary)
                     .setDescription("Booked on http://movienights.se");
-
             EventDateTime start = new EventDateTime()
                     .setDateTime(startDateTime);
             event.setStart(start);
@@ -147,6 +132,7 @@ public class CalendarService implements Constants {
             e.printStackTrace();
         }
         System.out.printf("Event created: %s\n", event.getHtmlLink());
+
         return event;
     }
 }

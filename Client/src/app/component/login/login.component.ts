@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { CLIENT_ID } from 'src/app/constants/constants';
 import _axios from 'axios';
+import { Router } from '@angular/router';
+import { GoogleAuthService } from 'src/app/provider/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,46 +11,37 @@ import _axios from 'axios';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _router: Router, private _ngZone: NgZone, private _authService: GoogleAuthService) { this.loadGapi() }
 
-  ngOnInit() {
-    this.loadGapi();
-  }
+  ngOnInit() { }
 
   loadGapi() {
     gapi.load('auth2', function () {
-      console.log("GAPI LOADED");
       gapi.auth2.init({
         client_id: CLIENT_ID,
-        scope: "https://www.googleapis.com/auth/calendar.events"
+        scope: "https://www.googleapis.com/auth/calendar.events",
       });
     });
   }
 
   login() {
-    gapi.auth2.getAuthInstance().grantOfflineAccess({
-      prompt: 'select_account',
-    }).then(this.signInCallback)
-  };
+    gapi.auth2.getAuthInstance().grantOfflineAccess()
+      .then(authResult => {
+        this._authService.verifyUser(authResult.code)
+          .subscribe(res => {
+            console.log(res);
+            this.storeUser();
+            this._ngZone.run(() => this._router.navigateByData({ url: ['/dashboard'], data: 0 }));
+          });
+      });
+  }
 
-  signInCallback(authResult) {
-    if (authResult.code) {
-      let axiosConfig = {
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Access-Control-Allow-Origin': '*',
-          'X-Requested-With': 'XMLHttpRequest'
-        }
-      };
-
-      _axios.post('http://localhost:8080/verifyUser', authResult.code, axiosConfig)
-        .then(data => {
-          if (data.status == 200) {
-            let currentUser = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
-            localStorage.setItem("currentUser", currentUser);
-            window.location.replace("http://localhost:4200/dashboard");
-          }
-        }).catch(err => console.log("ERROR: ", err))
-    }
+  storeUser() {
+    let currentEmail = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
+    let currentName = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName();
+    let currentImg = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getImageUrl();
+    localStorage.setItem('currentUser', currentEmail);
+    localStorage.setItem('currentName', currentName);
+    localStorage.setItem('currentImg', currentImg);
   }
 }

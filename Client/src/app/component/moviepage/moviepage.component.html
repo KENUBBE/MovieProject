@@ -1,22 +1,56 @@
-<p>Title: selectedMovie?.Title}}</p>
-<p>Year released: {{movieDescription[0]?.Released}}</p>
-<p>Language: {{movieDescription[0]?.Language}}</p>
-<p>Genre: {{movieDescription[0]?.Genre}}</p>
-<p>Runtime: {{movieDescription[0]?.Runtime}}</p>
-<p>Rating on IMDB: {{movieDescription[0]?.imdbRating}}</p>
-<p>Actors: {{movieDescription[0]?.Actors}}</p>
-<p>Plot: {{movieDescription[0]?.Plot}}</p>
+<h4>{{selectedMovie?.Title}}</h4>
 
-<img src="{{selectedMovie.Poster}}">
+<div class="alignBody">
+    <img src="{{selectedMovie?.Poster}}">
 
-<!-- <div><button mat-raised-button color="primary">Book this movie</button></div> -->
-<div><button (click)="goBack()" mat-raised-button color="primary">Go back to dashboard</button></div>
-<div><button (click)="showOnImdb()" mat-raised-button color="primary">Read about movie on imdb</button></div>
+    <span class="subDescription">
+        <p>{{selectedMovie.movieDescription?.Runtime}}
+            <span>|</span> {{selectedMovie.movieDescription?.Genre}}
+            <span>|</span> {{selectedMovie.movieDescription?.Language}}</p>
+    </span>
 
+    <span class="imdbRating">
+        <p><i class="fa fa-star" aria-hidden="true"></i>{{selectedMovie.movieDescription?.imdbRating}}</p>
+    </span>
 
-<div class="example-wrapper">
-    <label class="example-input-wrapper">
-        <input placeholder="Choose date" (dateTimeInput)="addEvent($event)" [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
-        <owl-date-time #dt></owl-date-time>
-    </label>
+    <div class="movieDescription">
+        <p>Release Date: {{selectedMovie.movieDescription?.Released}}</p>
+        <p>Language: {{selectedMovie.movieDescription?.Language}}</p>
+        <p>Actors: {{selectedMovie.movieDescription?.Actors}}</p>
+        <p>Plot: {{selectedMovie.movieDescription?.Plot}}</p>
+    </div>
+
+    <span class="actionButtons">
+        <button (click)="goBack()" mat-raised-button color="warn">Return to movie section</button>
+        <button (click)="showOnImdb()" mat-raised-button color="warn">Read about movie on imdb</button>
+    </span>
+
+    <div class="example-wrapper datePicker">
+        <label class="example-input-wrapper" id="eventInputSuccess">
+            <input id="eventInputError" placeholder="Click to choose date"
+                (dateTimeInput)="addEvent($event)" [owlDateTimeTrigger]="dt"
+                [owlDateTimeFilter]="myFilter" [min]="min" [owlDateTime]="dt"><i class="fa fa-calendar" aria-hidden="true"></i>
+            <owl-date-time #dt [pickerMode]="'dialog'"></owl-date-time>
+        </label>
+        <h4>{{dateTimeInput}}</h4>
+    </div>
 </div>
+
+<mz-modal #basic [fixedFooter]="true" [bottomSheet]="false" [options]="modalOptions">
+    <mz-modal-header>
+        <h4>Choose Group</h4>
+    </mz-modal-header>
+    <mz-modal-content>
+        <mz-select-container>
+            <select mz-select id="options-select" [placeholder]="'Choose Group'" [(ngModel)]="attendees">
+                <option *ngFor="let group of userGroup; index as i" [value]="group.members" data-icon="/src/assets/img/groupPic.png"
+                    class="left circle">{{group.groupName}}</option>
+                <option data-icon="/src/assets/img/groupPic.png" class="left circle">Option 2</option>
+            </select>
+        </mz-select-container>
+    </mz-modal-content>
+    <mz-modal-footer>
+        <button mz-button [flat]="true" mz-modal-close>CLOSE</button>
+        <button (click)="lol" mz-button [flat]="true" mz-modal-close>CONFIRM</button>
+    </mz-modal-footer>
+</mz-modal>
